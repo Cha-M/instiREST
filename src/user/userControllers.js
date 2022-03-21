@@ -52,11 +52,14 @@ exports.updatePassword = async (req, res) => {
 //Delete
 exports.deleteUser = async (req, res) => {
     try {
-        const deletedUser = await User.deleteOne({ [req.params.filterKey]: req.body.filterVal });
+        console.log(req);
+        console.log(res);
+        console.log("Begin userController deleteUser");
+        const deletedUser = await User.deleteOne({ username: req.user.username });
+        // await console.log(deletedUser);
             
         // const token = await jwt.sign({ _id: deletedUser._id }, process.env.SECRET);
         // res.status(200).send({ user: deletedUser.username, token });
-
         if (deletedUser && deletedUser.deletedCount > 0) {
             res.status(200).send({ msg: "Successfully deleted user." });
         }
